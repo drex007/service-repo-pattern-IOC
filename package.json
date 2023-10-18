@@ -1,7 +1,7 @@
 {
   "name": "ts-template",
   "version": "1.0.0",
-  "main": "Bootstrap.ts",
+  "main": "index.ts",
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only --no-notify -r tsconfig-paths/register src/index.ts",
     "test:repository": "jest ./User.repository.spec.ts --watch",
