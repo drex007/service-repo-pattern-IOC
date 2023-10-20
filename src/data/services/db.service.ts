@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import {injectable} from  'inversify'
-import { SubscribersModel } from '../schemas/subscriber.schema';
+import { SubscribersModel } from '@data/schemas/subscriber.schema';
 
 dotenv.config()
 

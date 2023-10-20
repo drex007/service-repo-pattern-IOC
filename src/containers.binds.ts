@@ -1,7 +1,7 @@
 import {Container }from 'inversify'
-import { DBService } from './services/db.service'
-import { SubscribersRepository } from './repository/subscribers.repository'
-import { SubscriberServices } from './services/subscribers.services'
+import { DBService } from '@data/services/db.service'
+import { SubscribersRepository } from '@data/repository/subscribers.repository'
+import { SubscriberServices } from 'src/logic/services/subscribers.services'
 
 
 export const  container = new Container({

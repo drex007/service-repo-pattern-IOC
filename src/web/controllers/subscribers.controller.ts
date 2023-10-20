@@ -1,7 +1,9 @@
+
 import {controller, httpGet, httpPost, httpPatch, httpDelete } from 'inversify-express-utils'
-import { DBService } from 'src/services/db.service';
 import {Request, Response} from 'express'
-import { SubscriberServices } from 'src/services/subscribers.services';
+import { SubscriberServices } from 'src/logic/services/subscribers.services';
+import { CreateSubscriberDto } from '@logic/dtos';
+import { ResponseSubscriberDto } from '@logic/dtos/subscribers/response.subscriber.dto';
 
 @controller('/subscribers')
 export class SubscribersController{
@@ -26,7 +28,9 @@ export class SubscribersController{
 
     @httpPost('/create')
   async createSubscriber(req:Request, res:Response){  
-    const subscriber = await this._subscriberServices.createSubscriber(req.body)
+    const dtoBody = CreateSubscriberDto.from(req.body)
+    const subscriber = await this._subscriberServices.createSubscriber(dtoBody)
+    
     return res.status(201).json({
       data: subscriber
     })

@@ -4,8 +4,8 @@ import 'reflect-metadata'
 import { Container } from 'inversify'
 import { InversifyExpressServer } from 'inversify-express-utils'
 import express from 'express'
-import '../controllers'
-import { DBService } from '../services/db.service'
+import './controllers'
+import { DBService } from '@data/services/db.service'
 import { container } from '../containers.binds'
 
 export class App{
