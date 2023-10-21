@@ -2,6 +2,7 @@
 import {injectable} from 'inversify'
 import { ISubscriber } from '@data/interfaces';
 import { DBService } from '@data/services/db.service';
+import { ResponseSubscriberDto } from '@logic/dtos/subscribers/response.subscriber.dto';
 
 @injectable()
 export class SubscribersRepository{
@@ -10,7 +11,8 @@ export class SubscribersRepository{
   }
 
   async all(){
-   return await this._DBService.subscribersModel.find({})
+   const subscribers =  await this._DBService.subscribersModel.find({})
+   return subscribers.map((subscriber)=> ResponseSubscriberDto.from(subscriber))
   }
 
   async findOne(id:string){

@@ -4,6 +4,7 @@ import {Request, Response} from 'express'
 import { SubscriberServices } from 'src/logic/services/subscribers.services';
 import { CreateSubscriberDto } from '@logic/dtos';
 import { ResponseSubscriberDto } from '@logic/dtos/subscribers/response.subscriber.dto';
+import { ValidateRequestMiddleWare } from '../middleware/validate.request.middleware';
 
 @controller('/subscribers')
 export class SubscribersController{
@@ -26,7 +27,7 @@ export class SubscribersController{
     })
   }
 
-    @httpPost('/create')
+    @httpPost('/create', ValidateRequestMiddleWare.with(CreateSubscriberDto))
   async createSubscriber(req:Request, res:Response){  
     const dtoBody = CreateSubscriberDto.from(req.body)
     const subscriber = await this._subscriberServices.createSubscriber(dtoBody)
@@ -39,7 +40,13 @@ export class SubscribersController{
 @httpPatch('/:id')
   async updateSusbcriber(req:Request, res:Response){
     const updated = await this._subscriberServices.updateSubscriber(req.params.id, req.body)
-    res.status(200).json({data: updated})
+    if(updated){
+        const dtoResponse =   ResponseSubscriberDto.from(updated)
+        return res.status(200).json({data: dtoResponse})
+    }
+
+    return res.status(400).json({error:"No object with this id"})
+    
   }
 
 @httpDelete('/:id')
