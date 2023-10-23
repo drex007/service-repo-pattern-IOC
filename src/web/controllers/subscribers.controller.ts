@@ -27,10 +27,9 @@ export class SubscribersController{
     })
   }
 
-    @httpPost('/create', ValidateRequestMiddleWare.with(CreateSubscriberDto))
+    @httpPost('/create', ValidateRequestMiddleWare.with())
   async createSubscriber(req:Request, res:Response){  
-    const dtoBody = CreateSubscriberDto.from(req.body)
-    const subscriber = await this._subscriberServices.createSubscriber(dtoBody)
+    const subscriber = await this._subscriberServices.createSubscriber(req.body)
     
     return res.status(201).json({
       data: subscriber
